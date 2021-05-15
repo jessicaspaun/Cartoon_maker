@@ -8,7 +8,7 @@ import numpy as np
 detector = dlib.get_frontal_face_detector()
 
 # Load the predictor
-predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+predictor = dlib.shape_predictor("C:/Users/srdes/PycharmProjects/shape_predictor_68_face_landmarks.dat")
 
 # # Face landmark ids
 # FACIAL_LANDMARKS_IDXS = OrderedDict([

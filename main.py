@@ -3,7 +3,7 @@ import dlib
 # Load the detector
 detector = dlib.get_frontal_face_detector()
 # Load the predictor
-predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
+predictor = dlib.shape_predictor("C:/Users/srdes/PycharmProjects/shape_predictor_68_face_landmarks.dat")
 #read the image
 img = cv2.imread("face.jpg")
 
