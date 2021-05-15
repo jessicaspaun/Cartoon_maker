@@ -16,3 +16,6 @@ The right eye using [36, 42].
 The left eye with [42, 48].
 The nose using [27, 35].
 And the jaw via [0, 17].
+
+Based some code off of this tutorial | https://www.pyimagesearch.com/2017/04/10/detect-eyes-nose-lips-jaw-dlib-opencv-python/
+You will need to use this repo for some functions | https://github.com/jrosebr1/imutils
