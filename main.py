@@ -41,9 +41,27 @@ for (i, rect) in enumerate(rects):
             cv2.circle(clone, (x, y), 1, (0, 0, 255), -1)
 
         # extract the ROI of the face region as a separate image
+        # print("shape: \n")
+        # print(shape[i:j])
         (x, y, w, h) = cv2.boundingRect(np.array([shape[i:j]]))
         roi = img[y:y + h, x:x + w]
         roi = imutils.resize(roi, width=250, inter=cv2.INTER_CUBIC)
+
+        hull = cv2.convexHull(shape[i:j], False)
+
+        print(hull)
+
+        cv2.drawContours(clone, hull, -1, (255,), -1)
+
+        mask = np.zeros(clone.shape, dtype=np.uint8)
+        roi_corners = np.array(hull, dtype=np.int32)
+        # fill the ROI so it doesn't get wiped out when the mask is applied
+        channel_count = clone.shape[2]  # i.e. 3 or 4 depending on your image
+        ignore_mask_color = (255,) * channel_count
+        mask = cv2.fillPoly(mask, roi_corners, ignore_mask_color)
+
+        cv2.imshow("mask", mask)
+
         # show the particular face part
         cv2.imshow("ROI", roi)
         cv2.imshow("Image", clone)
@@ -84,3 +102,6 @@ cv2.imshow(winname="Face", mat=img)
 cv2.waitKey(delay=0)
 # Close all windows
 cv2.destroyAllWindows()
+
+
+
