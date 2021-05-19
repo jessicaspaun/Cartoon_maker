@@ -53,14 +53,18 @@ for (i, rect) in enumerate(rects):
 
         cv2.drawContours(clone, hull, -1, (255,), -1)
 
-        mask = np.zeros(clone.shape, dtype=np.uint8)
+        mask = np.zeros(clone.shape[0:2], dtype=np.uint8)
         roi_corners = np.array(hull, dtype=np.int32)
-        # fill the ROI so it doesn't get wiped out when the mask is applied
-        channel_count = clone.shape[2]  # i.e. 3 or 4 depending on your image
-        ignore_mask_color = (255,) * channel_count
-        mask = cv2.fillPoly(mask, roi_corners, ignore_mask_color)
+        cv2.drawContours(mask, [roi_corners], -1, (255,255,255), -1, cv2.LINE_AA)
+
+        res = cv2.bitwise_and(clone, clone, mask=mask)
+
+        cropped = res[y:y + h, x:x + w]
+        cropped = imutils.resize(cropped, width=250, inter=cv2.INTER_CUBIC)
 
         cv2.imshow("mask", mask)
+        cv2.imshow("res", res)
+        cv2.imshow("cropped", cropped)
 
         # show the particular face part
         cv2.imshow("ROI", roi)
